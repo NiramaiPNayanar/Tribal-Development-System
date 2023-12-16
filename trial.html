@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tribal Management System</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to right, #2c3e50, #3498db);
+      color: #ecf0f1;
+      transition: background 0.5s ease;
+    }
+
+    header {
+      background-color: #1d2d3b;
+      padding: 20px;
+      text-align: center;
+      font-family: 'Georgia', Times, 'Times New Roman', serif;
+      color: #2ecc71;
+      opacity: 0;
+      animation: fade-in-header 1s ease 0.5s forwards;
+    }
+
+    @keyframes fade-in-header {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 36px;
+      letter-spacing: 2px;
+    }
+
+    nav {
+      background-color: #2c3e50;
+      overflow: hidden;
+    }
+
+    nav a {
+      float: left;
+      display: block;
+      color: #ecf0f1;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+    }
+
+    nav a:hover {
+      background-color: #34495e;
+    }
+
+    section {
+      padding: 40px;
+      background-color: #164b81;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      transition: box-shadow 0.3s ease;
+      margin: 20px;
+      animation: slide-up 1s ease 0.5s forwards;
+    }
+
+    @keyframes slide-up {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    form {
+      max-width: 600px;
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      transition: box-shadow 0.3s ease;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="submit"] {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0;
+      display: inline-block;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+      border-radius: 4px;
+    }
+
+    input[type="submit"] {
+      background-color: #2ecc71;
+      color: #ecf0f1;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #27ae60;
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    li {
+      background-color: #ecf0f1;
+      margin: 20px 0;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      transition: box-shadow 0.3s ease;
+      color: #2d322f;
+      animation: fade-in 1s ease 0.5s forwards;
+    }
+
+    @keyframes fade-in {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    #slideshow-container {
+      max-width: 600px;
+      position: relative;
+      margin: auto;
+      overflow: hidden;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      opacity: 0;
+      animation: slide-in-fade 1s ease 0.5s forwards;
+    }
+
+    @keyframes slide-in-fade {
+      from {
+        opacity: 0;
+        transform: translateX(100px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .slide {
+      display: none;
+      animation: fade-in 1s ease 0.5s forwards;
+    }
+
+    .slide img {
+      width: 100%;
+      border-radius: 8px;
+    }
+
+    p {
+      margin: 20px 0;
+      text-align: center;
+      color: #040404;
+      font-size: 18px;
+      animation: slide-up 1s ease 0.5s forwards;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>Tribal Management System</h1>
+  </header>
+
+  <nav>
+    <a href="trial.html">Home</a>
+    <a href="graph1.html">Graph</a>
+    <a href="graph2.html">Graph</a>
+    <a href="proj.html">Admin Login</a>
+    <a href="modi.html">Documents</a>
+  </nav>
+
+  <br><br>
+  <div id="slideshow-container">
+    <div class="slide">
+      <img src="image1.jpg" alt="Slide 1">
+    </div>
+    <div class="slide">
+      <img src="image2.jpg" alt="Slide 2">
+    </div>
+    <div class="slide">
+      <img src="image3.jpg" alt="Slide 3">
+    </div>
+    <div class="slide">
+      <img src="image4.jpg" alt="Slide 4">
+    </div>
+    <div class="slide">
+      <img src="image5.jpg" alt="Slide 5">
+    </div>
+  </div>
+
+  <p>Welcome to our Tribal Management System! This digital hub is designed to bring our community together, keeping you in the loop with important information and events. Explore and connect with the heart of heritage, find quick access to essential services, and participate in shaping our collective future.</p>
+
+  <section>
+    <h2>Upcoming Events</h2>
+    <ul id="eventList">
+      <!-- Event items will be dynamically added here using JavaScript -->
+    </ul>
+  </section>
+
+  <script>
+    var slideIndex = 0;
+    showSlides();
+
+    function showSlides() {
+        var i;
+        var slides = document.getElementsByClassName("slide");
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        slideIndex++;
+        if (slideIndex > slides.length) {
+            slideIndex = 1;
+        }
+        slides[slideIndex - 1].style.display = "block";
+        setTimeout(showSlides, 3000);
+    }
+
+    var eventList = document.getElementById("eventList");
+    var events = ["Tribal Gathering", "Cultural Festival", "Leadership Meeting"];
+
+    events.forEach(function (event) {
+      var listItem = document.createElement("li");
+      listItem.textContent = event;
+      eventList.appendChild(listItem);
+    });
+  </script>
+</body>
+
+</html>

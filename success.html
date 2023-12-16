@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Member Registration</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background-image: url(Screenshot\ 2023-12-14\ 171628.png);
+      color: #FF0000;
+    }
+
+    #memberForm {
+      display: none;
+      max-width: 400px;
+      background-color: #333;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+    }
+
+    input[type="text"],
+    input[type="number"],
+    input[type="date"] {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      display: inline-block;
+      border: 1px solid #FF0000;
+      box-sizing: border-box;
+      background-color: #444;
+      color: #FFF;
+    }
+
+    label {
+      color: #FF0000;
+    }
+
+    button {
+      background-color: #4caf50;
+      color: white;
+      padding: 10px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+
+<body>
+  <button onclick="showMemberForm()" id="my">Add Member</button>
+
+  <div id="memberForm">
+    <h2>Member Registration</h2>
+    <form>
+      <label for="memberId">Member ID:</label>
+      <input type="text" id="memberId" name="memberId" required>
+
+      <label for="memberName">Member Name:</label>
+      <input type="text" id="memberName" name="memberName" required>
+
+      <label for="educationalStatus">Educational Status:</label>
+      <input type="text" id="educationalStatus" name="educationalStatus" required>
+
+      <label for="age">Age:</label>
+      <input type="number" id="age" name="age" required>
+
+      <label for="dob">Date of Birth:</label>
+      <input type="date" id="dob" name="dob" required>
+
+      <label for="communityId">Community ID:</label>
+      <input type="text" id="communityId" name="communityId" required>
+
+      <label for="localityId">Locality ID:</label>
+      <input type="text" id="localityId" name="localityId" required>
+
+      <button type="button" onclick="submitMember(),alert()">Submit</button>
+      <a href="trial.html"><button type="button">Return</button></a>
+    </form>
+  </div>
+
+  <script>
+    function showMemberForm() {
+      var button = document.getElementById("my");
+      button.style.display = "none";
+      const memberForm = document.getElementById("memberForm");
+      memberForm.style.display = "block";
+    }
+
+    function alert(){
+      if (true) {
+        document.getElementById("memberForm").reset();
+        alert("Data entry successful!");
+      }
+    }
+
+    async function submitMember() {
+      const memberId = document.getElementById("memberId").value;
+      const memberName = document.getElementById("memberName").value;
+      const educationalStatus = document.getElementById("educationalStatus").value;
+      const age = document.getElementById("age").value;
+      const dob = document.getElementById("dob").value;
+      const communityId = document.getElementById("communityId").value;
+      const localityId = document.getElementById("localityId").value;
+
+      response = fetch(`http://127.0.0.1:8000/addmember?id=${memberId}&name=${memberName}&edst=${educationalStatus}&age=${age}&dob=${dob}&cid=${communityId}&lid=${localityId}`,
+      {method:"GET"});
+    }
+  </script>
+</body>
+
+</html>

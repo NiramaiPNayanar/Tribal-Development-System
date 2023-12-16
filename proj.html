@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+  />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tribal Management System</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f0f5f9; /* Updated background color */
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+
+    header {
+      background-color: #2c3e50; /* Updated header background color */
+      color: #ecf0f1; /* Updated header text color */
+      padding: 20px;
+      text-align: center;
+    }
+
+    nav {
+      background-color: #34495e; /* Updated navigation background color */
+      overflow: hidden;
+    }
+
+    nav a {
+      float: left;
+      display: block;
+      color: #ecf0f1; /* Updated navigation text color */
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+      transition: background-color 0.3s;
+    }
+
+    nav a:hover {
+      background-color: #4caf50;
+    }
+
+    section {
+      padding: 20px;
+      
+    }
+    .a{
+      background-image: url(./indigenous-and-tribal-people.jpg.webp);
+
+    }
+    .b{
+      background-image: url(./paper-airplanes-banner.png);
+      padding-bottom: 250px;
+    }
+
+    form {
+      max-width: 600px;
+      margin: 0 auto;
+      background-color: #ffffff; /* Updated form background color */
+      padding: 20px;
+      border-radius: 10px; /* Updated border radius */
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); /* Updated box shadow */
+    }
+
+    input[type="text"],
+    input[type="password"],
+    input[type="submit"] {
+      width: 100%;
+      padding: 12px; /* Increased padding */
+      margin: 10px 0; /* Increased margin */
+      display: inline-block;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+      border-radius: 5px; /* Added border radius */
+    }
+
+    input[type="submit"] {
+      background-color: #2ecc71; /* Updated submit button color */
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #27ae60; /* Updated submit button hover color */
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    li {
+      background-color: #ffffff;
+      margin: 15px 0; /* Increased margin */
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      color: #2c3e50;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+  <header class="animate__animated animate__fadeInDown">
+    <h1>Tribal Management System</h1>
+  </header>
+
+  <nav>
+    <a href="trial.html" class="animate__animated animate__fadeInLeft">Home</a>
+    <a href="graph.html" class="animate__animated animate__fadeInLeft animate__delay-0.5s">Graph</a>
+    <a href="proj.html" class="animate__animated animate__fadeInLeft animate__delay-1s">Admin Login</a>
+    <a href="document.html" class="animate__animated animate__fadeInLeft animate__delay-1.5s">Documents</a>
+  </nav>
+
+  <section class="a">
+    <h2 class="animate__animated animate__fadeInUp animate__delay-1s">Admin Login</h2>
+    <form id="adminLoginForm" class="animate__animated animate__fadeInUp animate__delay-1.9s">
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username" required>
+
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required>
+
+      <button type="submit" value="Login" onclick="check()">Login</button>
+    </form>
+  </section>
+
+  <section class="b">
+    <h2 class="animate__animated animate__fadeInUp animate__delay-2.5s">Upcoming Events</h2>
+    <ul id="eventList">
+    </ul>
+  </section>
+
+  <script>
+    async function check() {
+      const uname = document.getElementById("username").value;
+      const pass = document.getElementById("password").value;
+
+      const response = await fetch(
+        `http://127.0.0.1:8000/login?username=${uname}&password=${pass}`,
+        { method: "GET" }
+      );
+
+      const result = await response.json();
+
+      if (result.success) {
+        
+        window.alert("Login successful");
+        
+        window.location.href = "success.html"; 
+      } else {
+        
+        window.alert("Login failed. Please check your credentials.");
+      }
+    }
+  </script>
+</body>
+
+</html>

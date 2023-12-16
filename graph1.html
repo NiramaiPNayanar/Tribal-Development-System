@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>State Data Chart</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <style>
+     body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #228bbf;
+      color: #495057;
+    }
+
+    header {
+      background-color: #34495e;
+      color: white;
+      padding: 15px;
+      text-align: center;
+    }
+
+    nav ul {
+      display: flex;
+      justify-content: center;
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      background-color: #030709;
+      overflow: hidden;
+    }
+
+    nav a {
+      display: block;
+      color: #e1caca;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+    }
+
+    nav a:hover {
+      background-color: #87ceeb;
+      color: black;
+    }
+       
+        .graph_but {
+            margin-top: 50px;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+        .pie-chart-container {
+            width: 800px;
+            height: 600px;
+            display: none;
+        }
+        #chart-container {
+            width: 80vw;
+            height: 100vh;
+            display: none;
+            margin-top: 30px;
+            margin-bottom: 50px;
+        }
+  </style>
+</head>
+<body>
+    <header>
+        <h1>Tribal Management System</h1>
+    </header>
+    <center>
+        <header>
+    <h1>Literacy Rate Report</h1>
+  </header>
+
+  <nav>
+    <ul>
+      <li><a href="trial.html">Home</a></li>
+    </ul>
+  </nav>
+    </center>
+    <center>
+        <div class="graph_but">
+          <button type="button" class="btn btn-primary" onclick="toggleGraph()">View graph</button>
+        </div>
+
+        <div id="chart-container"  class="animate__animated animate__fadeInUp animate__delay-0.5s" style="width: 80vw; height: 100vh; display: none;"></div>
+    </center>
+  
+    <footer>
+        &copy; 2023 Tribal Management System
+    </footer>
+
+<script>
+  // Given data
+  const data = [
+    { state: 'Himachal Pradesh', male: 58.3, female: 40.0, avg: 49.2 },
+    { state: 'Arunachal Pradesh', male: 71.5, female: 65.1, avg: 68.3 },
+    { state: 'Assam', male: 79.0, female: 40.4, avg: 59.7 },
+    { state: 'Bihar', male: 61.3, female: 48.8, avg: 55.05 },
+    { state: 'Chhattisgarh', male: 69.7, female: 71.5, avg: 70.6 },
+    { state: 'Goa', male: 87.2, female: 53.2, avg: 70.2 },
+    { state: 'Gujarat', male: 71.7, female: 64.2, avg: 67.95 },
+    { state: 'Himachal Pradesh', male: 83.2, female: 39.7, avg: 61.45 },
+    { state: 'Jammu & Kashmir', male: 60.6, female: 46.2, avg: 53.4 },
+    { state: 'Jharkhand', male: 68.2, female: 53.0, avg: 60.6 },
+    { state: 'Karnataka', male: 71.1, female: 71.1, avg: 71.1 },
+    { state: 'Kerala', male: 80.8, female: 41.5, avg: 61.15 },
+    { state: 'Madhya Pradesh', male: 59.6, female: 57.0, avg: 58.3 },
+    { state: 'Maharashtra', male: 74.3, female: 72.7, avg: 73.5 },
+    { state: 'Manipur', male: 82.1, female: 73.5, avg: 77.8 },
+    { state: 'Meghalaya', male: 75.5, female: 89.5, avg: 82.5 },
+    { state: 'Mizoram', male: 93.6, female: 76.9, avg: 85.25 },
+    { state: 'Nagaland', male: 83.1, female: 41.2, avg: 62.15 },
+    { state: 'Orissa', male: 63.7, female: 37.3, avg: 50.5 },
+    { state: 'Rajasthan', male: 67.6, female: 74.3, avg: 70.95 },
+    { state: 'Sikkim', male: 85.0, female: 46.8, avg: 65.9 },
+    { state: 'Tamil Nadu', male: 61.8, female: 71.6, avg: 66.7 },
+    { state: 'Tripura', male: 86.4, female: 43.7, avg: 65.05 },
+  ];
+
+  // Extracting data for the graph
+  const xAxisData = data.map(item => item.state);
+        const maleData = data.map(item => item.male);
+        const femaleData = data.map(item => item.female);
+        const avgData = data.map(item => item.avg);
+
+        // Create traces
+        const traceMale = {
+            x: xAxisData,
+            y: maleData,
+            type: 'scatter',
+            mode: 'lines',
+            name: 'Male',
+            line: { color: '#00FF00', shape: 'spline' },
+        };
+
+        const traceFemale = {
+            x: xAxisData,
+            y: femaleData,
+            type: 'scatter',
+            mode: 'lines',
+            name: 'Female',
+            line: { color: '#0000FF', shape: 'spline' },
+        };
+
+        const traceAvg = {
+            x: xAxisData,
+            y: avgData,
+            type: 'scatter',
+            mode: 'lines',
+            name: 'Avg',
+            line: { color: '#FF0000', shape: 'spline' },
+        };
+
+        // Data array
+        const plotData = [traceMale, traceFemale, traceAvg];
+
+        // Layout with adjusted width and height
+        const layout = {
+            title: 'Literacy rate',
+            xaxis: { type: 'category' },
+            yaxis: { title: 'Values' },
+        };
+
+        // Plot the chart
+        Plotly.newPlot('chart-container', plotData, layout, {responsive: true});
+
+        function toggleGraph() {
+            const plotlyContainer = document.getElementById('chart-container');
+            const echartsContainers = document.querySelectorAll('[id^="pieChartContainer"], #chartContainer');
+
+            if (plotlyContainer.style.display === 'none') {
+                plotlyContainer.style.display = 'block';
+                echartsContainers.forEach(container => container.style.display = 'none');
+            } else {
+                plotlyContainer.style.display = 'none';
+                echartsContainers.forEach(container => container.style.display = 'block');
+            }
+        }
+    </script>
+</body>
+</html>

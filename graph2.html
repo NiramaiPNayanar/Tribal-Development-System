@@ -1,0 +1,170 @@
+<html lang="en">
+<head>
+  <style>
+    .a {
+      padding-left: 35%;
+    }
+        body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to bottom, #030709, #87ceeb);
+      color: #495057;
+    }
+
+    header {
+      background-color: #34495e;
+      color: white;
+      padding: 15px;
+      text-align: center;
+    }
+
+    nav ul {
+      display: flex;
+      justify-content: center;
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      background-color: #030709;
+      overflow: hidden;
+    }
+
+    nav a {
+      display: block;
+      color: #e1caca;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+    }
+
+    nav a:hover {
+      background-color: #87ceeb;
+      color: black;
+    }
+
+  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ECharts Example: Gradient Color, Shadow, Click Zoom</title>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.2.1/dist/echarts.min.js"></script>
+</head>
+<body>
+  <header>
+    <h1>Business Report</h1>
+  </header>
+
+  <nav>
+    <ul>
+      <li><a href="trial.html">Home</a></li>
+    </ul>
+  </nav>
+  <div id="chart-container" style="width: 80%; height: 70vh;"></div>
+  <p id="a" class="a">Domain of sectors</p>
+  <script>
+    let dataAxis = [
+      'Organic Agriculture',
+      'IT Services',
+      'Handcrafted Art',
+      'Pharmaceuticals',
+      'Environmental Technologies',
+      'Apparel and Accessories',
+      'Innovative Technologies',
+      'Restaurant and Catering',
+      'Educational Services',
+      'Art and Crafts'
+    ];
+
+    let data = [100000, 150000, 80000, 120000, 200000, 90000, 180000, 130000, 160000, 110000];
+
+    let myChart = echarts.init(document.getElementById('chart-container'));
+
+    let option = {
+      grid: {
+        left: '10%',
+        top: '10%',
+        width: '80%',
+        height: '90%' // Adjusted height to provide more space for text
+      },
+      xAxis: {
+        data: dataAxis,
+        axisLabel: {
+          inside: true,
+          color: '#fff',
+          rotate: 90,
+          margin: 8
+        },
+        axisTick: {
+          show: false
+        },
+        axisLine: {
+          show: false
+        },
+        z: 10
+      },
+      yAxis: {
+        axisLine: {
+          show: false
+        },
+        axisTick: {
+          show: false
+        },
+        axisLabel: {
+          color: '#999'
+        }
+      },
+      dataZoom: [
+        {
+          type: 'inside'
+        }
+      ],
+      series: [
+        {
+          type: 'bar',
+          showBackground: true,
+          itemStyle: {
+            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+              { offset: 0, color: '#83bff6' },
+              { offset: 0.5, color: '#188df0' },
+              { offset: 1, color: '#188df0' }
+            ])
+          },
+          emphasis: {
+            itemStyle: {
+              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                { offset: 0, color: '#2378f7' },
+                { offset: 0.7, color: '#2378f7' },
+                { offset: 1, color: '#83bff6' }
+              ])
+            }
+          },
+          data: data
+        }
+      ],
+      tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+          type: 'shadow'
+        },
+        formatter: function (params) {
+          let dataIndex = params[0].dataIndex;
+          let value = params[0].value;
+          return `${dataAxis[dataIndex]}: ${value}`;
+        }
+      }
+    };
+
+    const zoomSize = 6;
+
+    myChart.setOption(option);
+
+    myChart.on('click', function (params) {
+      console.log(dataAxis[Math.max(params.dataIndex - zoomSize / 2, 0)]);
+      myChart.dispatchAction({
+        type: 'dataZoom',
+        startValue: dataAxis[Math.max(params.dataIndex - zoomSize / 2, 0)],
+        endValue: dataAxis[Math.min(params.dataIndex + zoomSize / 2, data.length - 1)]
+      });
+    });
+  </script>
+</body>
+</html>
